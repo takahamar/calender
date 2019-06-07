@@ -13,4 +13,8 @@ class PostsController extends Controller
         return view('posts.index')->with('cal',$cal);
     }
     
+    public function edit($id){
+        $date = new Calender($id);
+        return view('posts.edit')->with('date', $date);
+    }
 }

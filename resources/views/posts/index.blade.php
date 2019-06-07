@@ -3,6 +3,8 @@
 function h($s) {
         return htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
         }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +18,7 @@ function h($s) {
 <pre>
 <?php
 if(isset($_POST['form1'])){
-        var_dump($_GET);
+        var_dump($_POST);
     }
 ?>
 </pre>

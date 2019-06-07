@@ -3,7 +3,6 @@
 namespace App\Http;
 
 
-
 class Calender {
     public $prev;
     public $next;
@@ -64,7 +63,10 @@ class Calender {
             if ($day->format('w') ==='0') {$body .= '</tr><tr>'; }
             $todayClass = ($day->format('Y-m-d') === $today->format('Y-m-d')) ? 'today' : '';
             
-            $body .= sprintf('<td class="youbi_%d %s"><form name="form1" method="POST" action="edit.blade.php" value="{{$day}}"><a href="#" onClick="document.form1.submit();">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'));
+            //$body .= sprintf('<td class="youbi_%d %s"><form name="form1" method="POST" value="%d"><a href="%d" //onClick="document.form1.submit();">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('Ymd'), $day-//>format('Ymd'), $day->format('d'));
+            
+             $body .= sprintf('<td class="youbi_%d %s"><form name="form1" method="POST"><input type="hidden" value="%d"><a href="%d" onClick="document.form1.submit();">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('Ymd'), $day->format('Ymd'), $day->format('d'));
+            
         }
         return $body;
     

@@ -12,4 +12,4 @@
 */
 
 Route::get('/', 'PostsController@index');
-Route::get('/{day}/edit', 'PostsController@edit');
+Route::get('/{id}', 'PostsController@edit');
