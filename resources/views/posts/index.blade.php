@@ -5,7 +5,9 @@ function h($s) {
         }
 
 
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang=ja>
@@ -15,13 +17,6 @@ function h($s) {
     <link rel="stylesheet" href="/css/styles.css" >
 </head>
 <body>
-<pre>
-<?php
-if(isset($_POST['form1'])){
-        var_dump($_POST);
-    }
-?>
-</pre>
     <table>
         <thead>
             <tr>

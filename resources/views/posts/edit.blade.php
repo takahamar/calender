@@ -1,14 +1,10 @@
 <pre>
 <?php
-  // [ user.php ]
-  if(isset($_POST['%d'])) {
-      $id = $_POST['%d'];
+  if(isset($_POST['form1'])) {
+      $id = $_POST['form1'];
       echo $id;
   }
-  if(isset($_GET['name'])) {
-      $name = $_GET['name'];
-      print("$name<br>\n");
-  }
+  
 ?>
 </pre>
 
@@ -21,8 +17,10 @@
 </head>
 <body>
   <div class="container">
-    <h1>{{ $date->yearMonth}}</h1>
-    <h1>{{ $date->yearMonth}}</h1>
+    <h1>
+        <a href="{{ url('/') }}">Back</a><br>
+        {{ $date->yearMonth}}
+    </h1>
     <p>{!! nl2br(e($date->yearMonth)) !!}</p>
   </div>
 </body>
