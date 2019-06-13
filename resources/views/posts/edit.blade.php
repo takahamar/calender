@@ -34,6 +34,11 @@
         <span class="error">{{ $errors->first('body') }}</span>
         @endif
     </p>
+    
+    <p>
+        <input type="file" name="image_url"> 
+    </p>
+    
     <p>
         <input type="submit" value="Add">
     </p>
