@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Calender;
+use App\Post;
 
 class PostsController extends Controller
 {
@@ -14,7 +15,14 @@ class PostsController extends Controller
     }
     
     public function edit($id){
-        $date = new Calender($id);
-        return view('posts.edit')->with('date', $date);
+        return view('posts.edit');
     }
+    
+    //public function store(Request $request) {
+        //$post = new Post();
+        //$post->title = $request->title;
+        //$post->body = $request->body;
+        //$post->save();
+        //return redirect('/');
+    //}
 }

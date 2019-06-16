@@ -1,6 +1,6 @@
 <?php
-  if(isset($_GET['s_date'])) {
-      $id = $_GET['s_date'];   
+  if(isset($_POST['s_date'])) {
+      $id = $_POST['s_date'];   
   }
 ?>
 
@@ -20,7 +20,7 @@
         <?php echo $id."の日記" ?>
     </h1>
       
-    <form method="post" action="{{ url('/') }}">
+    <form method="post" action="{{ url('/{id}') }}">
         {{ csrf_field() }}
     <p>
         <input type="text" name="title" placeholder="enter title" value="{{ old('title') }}">
