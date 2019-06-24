@@ -14,15 +14,21 @@ class PostsController extends Controller
         return view('posts.index')->with('cal',$cal);
     }
     
-    public function edit($id){
-        return view('posts.edit');
+    public function create(){
+        return view('posts.create');
     }
     
-    //public function store(Request $request) {
-        //$post = new Post();
-        //$post->title = $request->title;
-        //$post->body = $request->body;
-        //$post->save();
-        //return redirect('/');
-    //}
+    public function store(Request $request) {
+        $post = new Post();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+        return redirect('/{date}');
+    }
+    
+    public function show() {
+        $posts = Post::latest()->get();
+        return view('posts.show')->with('posts', $posts);
+    }
+    
 }

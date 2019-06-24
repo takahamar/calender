@@ -64,9 +64,9 @@ class Calender {
             $todayClass = ($day->format('Y-m-d') === $today->format('Y-m-d')) ? 'today' : '';
             
             
-            //$body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/%d"><input name= "s_date" type="hidden" value="%d"><a href="%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d'));
+            //$body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="POST" action="/%d"><input name= "s_date" type="hidden" value="%d"><a href="%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d'));
             
-            $body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="POST" action="/%d"><input name= "s_date" type="hidden" value="%d"><a href="%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d'));            
+            $body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/%d/create"><input name= "s_date" type="hidden" value="%d"><a href="%d/create" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d'));            
             
         }
         return $body;

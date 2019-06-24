@@ -1,7 +1,10 @@
 <?php
-  if(isset($_POST['s_date'])) {
-      $id = $_POST['s_date'];   
+//class Date {
+//public $date;
+  if(isset($_GET['s_date'])) {
+      $date = $_GET['s_date'];   
   }
+//}
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +12,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title><?php echo $id."の日記" ?></title>
+  <title><?php echo $date."の日記" ?></title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
@@ -17,10 +20,10 @@
   <div class="container">
     <h1>
         <a href="{{ url('/') }}" class="header-menu">Back</a><br>
-        <?php echo $id."の日記" ?>
+        <?php echo $date."の日記" ?>
     </h1>
       
-    <form method="post" action="{{ url('/{id}') }}">
+    <form method="post" action="{{ url('/{date}') }}">
         {{ csrf_field() }}
     <p>
         <input type="text" name="title" placeholder="enter title" value="{{ old('title') }}">
