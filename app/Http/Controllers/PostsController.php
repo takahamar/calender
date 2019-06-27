@@ -23,7 +23,7 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->body = $request->body;
         $post->save();
-        return redirect('/{date}');
+        return redirect()->action('PostsController@show', $post);
     }
     
     public function show() {

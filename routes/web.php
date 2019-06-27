@@ -13,5 +13,5 @@
 
 Route::get('/', 'PostsController@index');
 Route::get('/{date}/create', 'PostsController@create');
-Route::post('/{date}', 'PostsController@store');
-Route::get('/{date}', 'PostsController@show');
+Route::post('/show', 'PostsController@store');
+Route::get('/show/{date}', 'PostsController@show');

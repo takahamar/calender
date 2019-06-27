@@ -8,7 +8,7 @@
 <body>
   <div class="container">
     <h1>
-        日記一覧
+        日記
         <a href="{{ url('/') }}" class="header-menu">Back</a>
     </h1>
     <ul>
