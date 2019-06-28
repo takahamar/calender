@@ -23,7 +23,7 @@
         <?php echo $date."の日記" ?>
     </h1>
       
-    <form method="post" action="{{ url('/show',$date) }}">
+    <form method="post" action="{{ url('/posts',$date) }}">
         {{ csrf_field() }}
     <p>
         <input type="text" name="title" placeholder="enter title" value="{{ old('title') }}">
