@@ -23,8 +23,14 @@
         <?php echo $date."の日記" ?>
     </h1>
       
-    <form method="post" action="{{ url('/posts',$date) }}">
+    <form method="POST" action="{{ url('/posts/{designated_at}')}}" enctype="multipart/form-data">
         {{ csrf_field() }}
+    <p>
+        <input type="hidden" name="designated_at" value="{{ $date }}">
+        @if ($errors->has('designated_at'))
+        <span class="error">{{ $errors->first('designated_at') }}</span>
+        @endif
+    </p>
     <p>
         <input type="text" name="title" placeholder="enter title" value="{{ old('title') }}">
         @if ($errors->has('title'))
