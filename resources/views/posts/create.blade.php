@@ -12,7 +12,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title><?php echo $date."の日記" ?></title>
+  <title><?php echo $date."の日記投稿" ?></title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
@@ -20,10 +20,11 @@
   <div class="container">
     <h1>
         <a href="{{ url('/') }}" class="header-menu">Back</a><br>
-        <?php echo $date."の日記" ?>
+        <?php echo $date." の日記投稿" ?>
     </h1>
       
-    <form method="POST" action="{{ url('/posts/{designated_at}')}}" enctype="multipart/form-data">
+    
+    <form method="POST" action="{{ action('PostsController@store') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
     <p>
         <input type="hidden" name="designated_at" value="{{ $date }}">

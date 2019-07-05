@@ -30,12 +30,25 @@ class PostsController extends Controller
         return redirect()->action('PostsController@show', $post->designated_at);
     }
     
-    //public function show(Post $post) {
-    public function show($designated_at) {
+    public function show(Post $post, Request $request) {
+    //public function show() {
+    //public function show($designated_at) {
         //$posts = Post::where('designated_at', $post->designated_at)->get();
-        $posts = Post::findOrFail($designated_at);
-        //$posts = Post::where('designated_at', '=' ,$post->designated_at)->get();
-        return view('posts.show')->with('posts', $posts);
+        //$posts = Post::findOrFail($post->designated_at);
+        //$posts = Post::where('designated_at', $request->designated_at)->get();
+        //$posts = Post::all();;
+        $day='';
+        $day = $request->designated_at;
+        //$posts = Post::where('designated_at', $day)->get();
+        //$posts = Post::where('id', '113')->get();
+        //$date = $post->designated_at;
+        //$posts = Post::where('designated_at', 20190706)->get();
+        //dd($posts->toArray());
+        //dd($day);
+        //$posts = Post::where('designated_at', $request->designated_at)->get();
+        $posts = Post::where('designated_at', $day)->get();
+        //return view('posts.show')->with('posts', $posts, 'day', $day);
+        return view('posts.show')->with('posts', $posts)->with('day', $day);
     }
     
 }
