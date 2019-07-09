@@ -51,4 +51,19 @@ class PostsController extends Controller
         return view('posts.show')->with('posts', $posts)->with('day', $day);
     }
     
+    public function edit(Post $post) {
+      return view('posts.edit')->with('post', $post);
+    }
+
+    public function update(Request $request, Post $post) {
+        $post->designated_at = $request->designated_at;
+        $post->title = $request->title;
+        $post->body = $request->body;
+        //$post->image_url = $request->file('image_url')->storeAs('public/post_images', $time.'_'.Auth::user()->id . '.jpg');
+        //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg');
+        //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg', enctype="multipart/form-data");
+        $post->save();
+        return redirect()->action('PostsController@show', $post->designated_at);
+    }
+    
 }

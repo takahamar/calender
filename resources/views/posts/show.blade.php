@@ -14,11 +14,17 @@
     <ul>
       {{--
       @foreach ($posts as $post)
-      <li><a href="">{{ $post->title }}</a></li>
+      <li>
+          <a href="">{{ $post->title }}</a>
+          <a href="{{ action('PostsController@edit', $post) }}" class="edit">[Edit]</a>
+      </li>
       @endforeach
       --}}
       @forelse ($posts as $post)
-      <li><a href="">{{ $post->title }}</a></li>
+      <li>
+          <a href="">{{ $post->title }}</a>
+          <a href="{{ action('PostsController@edit', $post) }}" class="edit">[Edit]</a>
+      </li>  
       @empty
       <li>No posts yet</li>
       @endforelse
