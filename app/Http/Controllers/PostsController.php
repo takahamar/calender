@@ -23,8 +23,8 @@ class PostsController extends Controller
         $post->designated_at = $request->designated_at;
         $post->title = $request->title;
         $post->body = $request->body;
-        //$post->image_url = $request->file('image_url')->storeAs('public/post_images', $time.'_'.Auth::user()->id . '.jpg');
-        //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg');
+        //$post->image_url = $request->image_url->storeAs('public/post_images');
+        $post->image_url = $request->file('image_url')->storeAs('public/post_images', '.jpg');
         //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg', enctype="multipart/form-data");
         $post->save();
         return redirect()->action('PostsController@show', $post->designated_at);
