@@ -2,33 +2,20 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>Blog Posts</title>
+  <title><?php echo $post->title."の詳細" ?></title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <div class="container">
     <h1>
-        <?php echo $day." の日記一覧" ?>
-        <a href="{{ url('/') }}" class="header-menu">Back</a>
+        <a href="{{ url('/posts', $post->designated_at) }}" class="header-menu">diary list</a>
+        <br>
+        {{ $post->title }}
     </h1>
-    <ul>
-      {{--
-      @foreach ($posts as $post)
-      <li>
-          <a href="">{{ $post->title }}</a>
-          <a href="{{ action('PostsController@edit', $post) }}" class="edit">[Edit]</a>
-      </li>
-      @endforeach
-      --}}
-      @forelse ($posts as $post)
-      <li>
-          <a href="">{{ $post->title }}</a>
-          <a href="{{ action('PostsController@edit', $post) }}" class="edit">[Edit]</a>
-      </li>  
-      @empty
-      <li>No posts yet</li>
-      @endforelse
-    </ul>
+    <p>{!! nl2br(e($post->body)) !!}</p>
+    {{--<p>画像：<img src ="/storage/app/{!! nl2br(e($post->img_url)) !!}"></p>--}}
+    <p>画像：<img src ="/{{ $image_url }}"></p>
+    {{--<p>画像：{!! nl2br(e($post->img_url)) !!}</p>--}}
   </div>
 </body>
 </html>

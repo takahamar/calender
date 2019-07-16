@@ -1,8 +1,8 @@
 <?php
 //class Date {
 //public $date;
-  if(isset($_GET['s_date'])) {
-      $date = $_GET['s_date'];   
+  if(isset($_POST['c_date'])) {
+      $ymd = $_POST['c_date'];   
   }
 //}
 ?>
@@ -12,22 +12,22 @@
 
 <head>
   <meta charset="utf-8">
-  <title><?php echo $date."の日記投稿" ?></title>
+  <title><?php echo $ymd."の日記投稿" ?></title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
   <div class="container">
     <h1>
-        <a href="{{ url('/') }}" class="header-menu">Back</a><br>
-        <?php echo $date." の日記投稿" ?>
+        <a href="{{ url('/posts', $ymd) }}" class="header-menu">diary list</a><br>
+        <?php echo $ymd." の日記投稿" ?>
     </h1>
       
     
     <form method="POST" action="{{ action('PostsController@store') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
     <p>
-        <input type="hidden" name="designated_at" value="{{ $date }}">
+        <input type="hidden" name="designated_at" value="{{ $ymd }}">
         @if ($errors->has('designated_at'))
         <span class="error">{{ $errors->first('designated_at') }}</span>
         @endif

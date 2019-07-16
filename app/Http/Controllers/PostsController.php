@@ -14,9 +14,6 @@ class PostsController extends Controller
         return view('posts.index')->with('cal',$cal);
     }
     
-    public function create(){
-        return view('posts.create');
-    }
     
     public function store(Request $request) {
         $post = new Post();
@@ -24,13 +21,16 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->body = $request->body;
         //$post->image_url = $request->image_url->storeAs('public/post_images');
-        $post->image_url = $request->file('image_url')->storeAs('public/post_images', '.jpg');
+        $post->image_url = $request->image_url->storeAs('public/post_images', '.jpg');
+        //$post->image_url = $request->image_url->store('public/post_images', '.jpg');
         //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg', enctype="multipart/form-data");
         $post->save();
-        return redirect()->action('PostsController@show', $post->designated_at);
+        return redirect()->action('PostsController@list', $post->designated_at);
+        //return redirect()->action('PostsController@list');
     }
     
-    public function show(Post $post, Request $request) {
+    public function list(Post $post, Request $request) {
+    //public function list(Post $post) {
     //public function show() {
     //public function show($designated_at) {
         //$posts = Post::where('designated_at', $post->designated_at)->get();
@@ -48,11 +48,38 @@ class PostsController extends Controller
         //$posts = Post::where('designated_at', $request->designated_at)->get();
         $posts = Post::where('designated_at', $day)->get();
         //return view('posts.show')->with('posts', $posts, 'day', $day);
-        return view('posts.show')->with('posts', $posts)->with('day', $day);
+        return view('posts.list')->with('posts', $posts)->with('day', $day);
+        //return view('posts.list')->with('posts', $post);
     }
     
+    public function create(){
+        return view('posts.create');
+    }
+    
+    
+    public function show(Post $post) {
+        $image_url = '';
+        $image_url = str_replace('public/', 'storage/', $post->image_url);
+        return view('posts.show')->with('post', $post)->with('image_url', $image_url);
+        //return view('posts.show')->with('post', $post);
+    }
+    
+    //public function show(Post $post)
+    //{
+        //return view('posts/show', [
+            //'designated_at' => $post->designated_at,
+            //'title' => $post->title,
+            //'body' => $post->content,
+            //'image_url' => str_replace('public/', 'storage/', $post->image_url), //今回追加
+        //]);        
+    //}
+    
+    
     public function edit(Post $post) {
-      return view('posts.edit')->with('post', $post);
+      //return view('posts.edit')->with('post', $post);
+      $image_url = '';
+      $image_url = str_replace('public/', 'storage/', $post->image_url);
+      return view('posts.edit')->with('post', $post)->with('image_url', $image_url);
     }
 
     public function update(Request $request, Post $post) {
@@ -62,8 +89,16 @@ class PostsController extends Controller
         //$post->image_url = $request->file('image_url')->storeAs('public/post_images', $time.'_'.Auth::user()->id . '.jpg');
         //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg');
         //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg', enctype="multipart/form-data");
+        $post->image_url = $request->image_url->storeAs('public/post_images', '.jpg');
+        //$post->image_url = $request->image_url->store('public/post_images', '.jpg');
         $post->save();
-        return redirect()->action('PostsController@show', $post->designated_at);
+        return redirect()->action('PostsController@list', $post->designated_at);
+    }
+    
+     public function destroy(Post $post) {
+       $post->delete();
+       return redirect()->action('PostsController@list', $post->designated_at);
+       //return redirect('/');
     }
     
 }
