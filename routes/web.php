@@ -11,16 +11,25 @@
 |
 */
 
-Route::get('/', 'PostsController@index');
-Route::post('/posts/create/{day}', 'PostsController@create');
-Route::post('/posts', 'PostsController@store');
+//Route::get('/', 'PostsController@index');
+Route::get('/', function () {
+    return view('auth/login');
+});
+Route::get('/calender', 'PostsController@index');
+Route::post('/calender/posts/create/{day}', 'PostsController@create');
+Route::post('/calender/posts', 'PostsController@store');
 //Route::post('/posts/{designated_at}', 'PostsController@store');
-Route::get('/posts/{designated_at}', 'PostsController@list');
+Route::get('/calender/posts/{designated_at}', 'PostsController@list');
 //Route::get('/posts/{day}', 'PostsController@show');
 //Route::get('/posts/{date}', 'PostsController@show');
 //Route::get('/posts/{day}/{post}/edit', 'PostsController@edit');
 //Route::get('/posts/{day}/{post}/edit', 'PostsController@edit');
-Route::get('/posts/detail/{post}', 'PostsController@show');
-Route::get('/posts/{post}/edit', 'PostsController@edit');
-Route::patch('/posts/detail/{post}', 'PostsController@update');
-Route::delete('/posts/detail/{post}', 'PostsController@destroy');
+Route::get('/calender/posts/detail/{post}', 'PostsController@show');
+Route::get('/calender/posts/{post}/edit', 'PostsController@edit');
+Route::patch('/calender/posts/detail/{post}', 'PostsController@update');
+Route::delete('/calender/posts/detail/{post}', 'PostsController@destroy');
+
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/friends', 'FriendController@index')->middleware('auth');
+Route::get('/friend/search', 'FriendController@search');

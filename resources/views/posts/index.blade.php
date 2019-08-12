@@ -17,12 +17,16 @@ function h($s) {
     <link rel="stylesheet" href="/css/styles.css" >
 </head>
 <body>
+    <div class="parent">
+        <p><a href="{{ url('/') }}">login</a></p>
+    </div>
+    <br>
     <table>
         <thead>
             <tr>
-                <th><a href="/?t=<?php echo h($cal->prev); ?>">&laquo;</a></th>
+                <th><a href="/calender?t=<?php echo h($cal->prev); ?>">&laquo;</a></th>
                 <th colspan="5"><?php echo h($cal->yearMonth); ?></th>
-                <th><a href="/?t=<?php echo h($cal->next); ?>">&raquo;</a></th>
+                <th><a href="/calender?t=<?php echo h($cal->next); ?>">&raquo;</a></th>
             </tr>
         </thead>
         <tbody>
@@ -44,8 +48,9 @@ function h($s) {
         </tbody>
         <tfoot>
             <tr>
-                {{--<th colspan="7"><a href="">Today</th>--}}
-                <th colspan="7"><a href="/">Today</a></th>
+                <th colspan="7">
+                    <a href="/calender">Today</a>
+                </th>
             </tr>
         </tfoot>
     </table>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Calender;
 use App\Post;
+use Carbon\Carbon;
 
 class PostsController extends Controller
 {
@@ -17,11 +18,19 @@ class PostsController extends Controller
     
     public function store(Request $request) {
         $post = new Post();
+        //$post->id = $request->id;
         $post->designated_at = $request->designated_at;
         $post->title = $request->title;
         $post->body = $request->body;
+        date_default_timezone_set('Asia/Tokyo');
+        $now = date("Y-m-d H:i:s", strtotime('+9hour'));
+        //$post->created_at = $request->created_at;
+        //$time='';
+        //$time = Carbon::createFromFormat('Y-m-d H:i:s', $post->created_at)->format('His');
         //$post->image_url = $request->image_url->storeAs('public/post_images');
-        $post->image_url = $request->image_url->storeAs('public/post_images', '.jpg');
+        //$post->image_url = $request->image_url->storeAs('public/storage/post_images', '.jpg');
+        $post->image_url = $request->image_url->storeAs('public/post_images', $now.'.jpg');
+        //dd($post->image_url);
         //$post->image_url = $request->image_url->store('public/post_images', '.jpg');
         //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg', enctype="multipart/form-data");
         $post->save();
@@ -59,7 +68,10 @@ class PostsController extends Controller
     
     public function show(Post $post) {
         $image_url = '';
+        //$image_url = str_replace('public/', 'storage/', $post->image_url);
         $image_url = str_replace('public/', 'storage/', $post->image_url);
+        //$image_url = str_replace('public/','storage/post_images', $post->image_url);
+        //dd($image_url);
         return view('posts.show')->with('post', $post)->with('image_url', $image_url);
         //return view('posts.show')->with('post', $post);
     }
@@ -89,7 +101,12 @@ class PostsController extends Controller
         //$post->image_url = $request->file('image_url')->storeAs('public/post_images', $time.'_'.Auth::user()->id . '.jpg');
         //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg');
         //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg', enctype="multipart/form-data");
-        $post->image_url = $request->image_url->storeAs('public/post_images', '.jpg');
+        //$post->image_url = $request->image_url->storeAs('public/post_images', '.jpg');
+        //$post->image_url = $request->image_url->storeAs('public/post_images');
+        //$post->image_url = $request->image_url->storeAs('public/post_images');
+        date_default_timezone_set('Asia/Tokyo');
+        $now = date("Y-m-d H:i:s", strtotime('+9hour'));
+        $post->image_url = $request->image_url->storeAs('public/post_images', $now.'.jpg');
         //$post->image_url = $request->image_url->store('public/post_images', '.jpg');
         $post->save();
         return redirect()->action('PostsController@list', $post->designated_at);

@@ -10,11 +10,12 @@
 <body>
   <div class="container">
     <h1>
-        <a href="{{ url('/posts', $post->designated_at) }}" class="header-menu">diary list</a><br>
+        <a href="{{ url('/calender/posts', $post->designated_at) }}" class="header-menu">diary list</a><br>
+        <a href="{{ url('/') }}" class="header-menu">login</a><br>
         <?php echo $post->designated_at." の"."「".$post->title."」"." の編集" ?>
     </h1>
       
-    <form method="POST" action="{{ url('/posts/detail', $post) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ url('/calender/posts/detail', $post) }}" enctype="multipart/form-data">
         {{ csrf_field() }}
         {{ method_field('patch') }}
     <p>
@@ -37,7 +38,8 @@
     </p>
     
     <p>
-        <input type="file" name="image_url" value="{{ old('image_url', $image_url) }}"> 
+        <input type="text" value="{{ old('image_url', $image_url) }}">
+        <input type="file" name="image_url"> 
     </p>
     
     <p>

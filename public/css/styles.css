@@ -84,3 +84,10 @@ h1 {
 .del {
   font-size: 12px;
 }
+
+.parent p {
+  position: absolute;
+  left: 60%;
+  width: 100px;
+  text-align: center;/*一応BOX内の文字も中央寄せ*/
+}

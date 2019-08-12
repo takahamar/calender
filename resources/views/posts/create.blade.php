@@ -19,7 +19,8 @@
 <body>
   <div class="container">
     <h1>
-        <a href="{{ url('/posts', $ymd) }}" class="header-menu">diary list</a><br>
+        <a href="{{ url('/calender/posts', $ymd) }}" class="header-menu">diary list</a><br>
+        <a href="{{ url('/') }}" class="header-menu">login</a><br>
         <?php echo $ymd." の日記投稿" ?>
     </h1>
       
