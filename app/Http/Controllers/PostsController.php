@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Calender;
 use App\Post;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
     
     public function index(){
         $cal = new Calender();
-        return view('posts.index')->with('cal',$cal);
+        //dd(Auth::id());
+        $auths = Auth::id();
+        return view('posts.index')->with('cal',$cal)->with('auth',$auths);
     }
     
     
@@ -117,5 +120,12 @@ class PostsController extends Controller
        return redirect()->action('PostsController@list', $post->designated_at);
        //return redirect('/');
     }
+    
+     public function logout () {
+     //logout user
+     auth()->logout();
+     // redirect to homepage
+     return redirect('/');
+}
     
 }

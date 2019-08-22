@@ -18,7 +18,7 @@ function h($s) {
 </head>
 <body>
     <div class="parent">
-        <p><a href="{{ url('/') }}">login</a></p>
+        <p><a href="{{ url('/logout') }}">logout</a></p>
     </div>
     <br>
     <table>

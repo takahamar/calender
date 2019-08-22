@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -25,8 +26,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/calender';
-
+    
+    //protected $redirectTo = '/calender/{Auth::id()}';
+    
+    //protected $redirectTo = "{{action('PostsController@index', $auths)}}";
+    
+    protected function redirectTo()
+    {
+        $auths = Auth::id();
+        return action('PostsController@index', $auths);
+    }
+    
     /**
      * Create a new controller instance.
      *

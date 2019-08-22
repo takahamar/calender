@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddImageUrlToPostsTable extends Migration
+class AddUserIdToPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddImageUrlToPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('image_url')->default('');
-            //$table->string('image_url');
+            $table->integer('user_id')->unsigned()->default('');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -27,7 +27,7 @@ class AddImageUrlToPostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('image_url');
+            $table->dropColumn('user_id');
         });
     }
 }

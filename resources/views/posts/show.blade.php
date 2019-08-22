@@ -10,7 +10,7 @@
     <h1>
         <a href="{{ url('/calender/posts', $post->designated_at) }}" class="header-menu">diary list</a>
         <br>
-        <a href="{{ url('/') }}" class="header-menu">login</a>
+        <a href="{{ url('/logout') }}" class="header-menu">logout</a>
         <br>
         {{ $post->title }}
     </h1>

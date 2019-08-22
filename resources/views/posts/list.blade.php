@@ -25,7 +25,7 @@
         <br>
         <a href="{{ url('/calender') }}" class="header-menu">Calendar</a>
         <br>
-        <a href="{{ url('/') }}" class="header-menu">login</a>
+        <a href="{{ url('/logout') }}" class="header-menu">logout</a>
         <?php echo $day." の日記一覧" ?>
     </h1>
     <ul>
