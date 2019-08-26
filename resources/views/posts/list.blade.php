@@ -17,13 +17,14 @@
 <body>
   <div class="container">
     <h1>
-        <form name="form_$date" method="POST" action="{{ url('/calender/posts/create', $day) }}">
+        <form name="form_$date" method="POST" action="{{ action('PostsController@create', [$auth, $day] ) }}">
+        {{--<form name="form_$date" method="POST" action="{{ action('PostsController@create', $date) }}">--}}
             {{ csrf_field() }}
             <input name= "c_date" type="hidden" value="{{$day}}">   
-             <a href="/calender/posts/create, $date" onClick="document.form_$date.submit(); return false;" class="header-menu">New Post</a>
+            <a href="/calender/{{$auth}}/posts/create, $date" onClick="document.form_$date.submit(); return false;" class="header-menu">New Post</a>
         </form>
         <br>
-        <a href="{{ url('/calender') }}" class="header-menu">Calendar</a>
+        <a href="{{ url('/calender', $auth) }}" class="header-menu">Calendar</a>
         <br>
         <a href="{{ url('/logout') }}" class="header-menu">logout</a>
         <?php echo $day." の日記一覧" ?>
@@ -32,10 +33,11 @@
       
       @forelse ($posts as $post)
       <li>
-          <a href="{{ url('/calender/posts/detail', $post->id) }}" class="detail">{{ $post->title }}</a>
-          <a href="{{ action('PostsController@edit', $post) }}" class="edit">[Edit]</a>
+          <a href="{{ action('PostsController@show', [$auth, $post->id]) }}" class="detail">{{ $post->title }}</a>
+          <a href="{{ action('PostsController@edit', [$auth, $post->id]) }}" class="edit">[Edit]</a>
           <a href="#" class="del" data-id="{{ $post->id }}">[x]</a>
-          <form method="post" action="{{ url('/calender/posts/detail', $post->id) }}" id="form_{{ $post->id }}">
+          {{--<form method="post" action="{{ url('/calender/posts/detail', $post->id) }}" id="form_{{ $post->id }}">--}}
+          <form method="post" action="{{ action('PostsController@destroy', [$auth, $post->id]) }}" id="form_{{ $post->id }}">
               {{ csrf_field() }}
               {{ method_field('delete') }}
           </form>

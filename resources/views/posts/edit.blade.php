@@ -10,7 +10,7 @@
 <body>
   <div class="container">
     <h1>
-        <a href="{{ url('/calender/posts', $post->designated_at) }}" class="header-menu">diary list</a><br>
+        <a href="{{ action('PostsController@list', [$post->user_id, $post->designated_at]) }}" class="header-menu">diary list</a><br>
         <a href="{{ url('/logout') }}" class="header-menu">logout</a><br>
         <?php echo $post->designated_at." の"."「".$post->title."」"." の編集" ?>
     </h1>

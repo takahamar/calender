@@ -33,11 +33,12 @@ class PostsController extends Controller
         //$post->image_url = $request->image_url->storeAs('public/post_images');
         //$post->image_url = $request->image_url->storeAs('public/storage/post_images', '.jpg');
         $post->image_url = $request->image_url->storeAs('public/post_images', $now.'.jpg');
+        $post->user_id = Auth::id();
         //dd($post->image_url);
         //$post->image_url = $request->image_url->store('public/post_images', '.jpg');
         //$post->image_url = $request->file('image_url')->storeAs('uploads', 'filename.jpg', enctype="multipart/form-data");
         $post->save();
-        return redirect()->action('PostsController@list', $post->designated_at);
+        return redirect()->action('PostsController@list', [$post->user_id, $post->designated_at]);
         //return redirect()->action('PostsController@list');
     }
     
@@ -51,6 +52,7 @@ class PostsController extends Controller
         //$posts = Post::all();;
         $day='';
         $day = $request->designated_at;
+        $auths = Auth::id();
         //$posts = Post::where('designated_at', $day)->get();
         //$posts = Post::where('id', '113')->get();
         //$date = $post->designated_at;
@@ -58,18 +60,20 @@ class PostsController extends Controller
         //dd($posts->toArray());
         //dd($day);
         //$posts = Post::where('designated_at', $request->designated_at)->get();
-        $posts = Post::where('designated_at', $day)->get();
+        $posts = Post::where('user_id', $auths)->where('designated_at', $day)->get();
         //return view('posts.show')->with('posts', $posts, 'day', $day);
-        return view('posts.list')->with('posts', $posts)->with('day', $day);
+        return view('posts.list')->with('posts', $posts)->with('day', $day)->with('auth', $auths);
         //return view('posts.list')->with('posts', $post);
     }
     
     public function create(){
-        return view('posts.create');
+        $auths = Auth::id();
+        return view('posts.create')->with('auth', $auths);
     }
     
     
-    public function show(Post $post) {
+    public function show($auth, $id) {
+        $post = Post::findOrFail($id);
         $image_url = '';
         //$image_url = str_replace('public/', 'storage/', $post->image_url);
         $image_url = str_replace('public/', 'storage/', $post->image_url);
@@ -90,8 +94,9 @@ class PostsController extends Controller
     //}
     
     
-    public function edit(Post $post) {
+    public function edit($auth, $id) {
       //return view('posts.edit')->with('post', $post);
+      $post = Post::findOrFail($id);
       $image_url = '';
       $image_url = str_replace('public/', 'storage/', $post->image_url);
       return view('posts.edit')->with('post', $post)->with('image_url', $image_url);
@@ -110,14 +115,16 @@ class PostsController extends Controller
         date_default_timezone_set('Asia/Tokyo');
         $now = date("Y-m-d H:i:s", strtotime('+9hour'));
         $post->image_url = $request->image_url->storeAs('public/post_images', $now.'.jpg');
+        $post->user_id = Auth::id();
         //$post->image_url = $request->image_url->store('public/post_images', '.jpg');
         $post->save();
-        return redirect()->action('PostsController@list', $post->designated_at);
+        return redirect()->action('PostsController@list', [$post->user_id, $post->designated_at]);
     }
     
-     public function destroy(Post $post) {
+     public function destroy($auth, $id) {
+       $post = Post::findOrFail($id);
        $post->delete();
-       return redirect()->action('PostsController@list', $post->designated_at);
+       return redirect()->action('PostsController@list', [$post->user_id, $post->designated_at]);
        //return redirect('/');
     }
     

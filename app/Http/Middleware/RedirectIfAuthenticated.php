@@ -18,9 +18,11 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            //return redirect('/calender/{Auth::id()}');
+            //$auths = Auth::id();
+            //return redirect('/calender/{{$auths}}');
             $auths = Auth::id();
-            return action('PostsController@index', $auths);
+            //return action('PostsController@index', $auths);
+            return redirect()->action('PostsController@index', $auths);
         }
 
         return $next($request);

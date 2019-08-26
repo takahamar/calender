@@ -2,6 +2,10 @@
     
 namespace App\Http;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+
 
 class Calender {
     public $prev;
@@ -53,6 +57,7 @@ class Calender {
 
     private function _getBody(){
         $body = '';
+        $auth=Auth::id();
         $period = new \DatePeriod(
             new \DateTime('first day of' . $this->yearMonth),
             new \DateInterval('P1D'),
@@ -66,7 +71,12 @@ class Calender {
             
             //$body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="POST" action="/%d"><input name= "s_date" type="hidden" value="%d"><a href="%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d'));
             
-            $body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/calender/posts/%d"><input name= "s_date" type="hidden" value="%d"><a href="/calender/posts/%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d'));            
+            //$body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/calender/{{$Auth::id()}}/posts/%d"><input name= "s_date" type="hidden" value="%d"><a href="/calender/{{Auth::id()}}/posts/%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d'));            
+            
+            //$body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/calender/{{$auth}}/posts/%d"><input name= "s_date" type="hidden" value="%d"><a href="/calender/{{$auth}}/posts/%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d')); 
+            
+            $body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/calender/%d/posts/%d"><input name= "s_date" type="hidden" value="%d"><a href="/calender/%d/posts/%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $auth, $day->format('Ymd'), $day->format('Ymd'), $auth, $day->format('Ymd'), $day->format('d'), $day->format('d'));            
+            
             
         }
         return $body;

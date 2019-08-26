@@ -18,18 +18,18 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/calender/{id}', 'PostsController@index');
-    Route::post('/calender/posts/create/{day}', 'PostsController@create');
+    Route::post('/calender/{id}/posts/create/{day}', 'PostsController@create');
     Route::post('/calender/posts', 'PostsController@store');
     //Route::post('/posts/{designated_at}', 'PostsController@store');
-    Route::get('/calender/posts/{designated_at}', 'PostsController@list');
+    Route::get('/calender/{id}/posts/{designated_at}', 'PostsController@list');
     //Route::get('/posts/{day}', 'PostsController@show');
     //Route::get('/posts/{date}', 'PostsController@show');
     //Route::get('/posts/{day}/{post}/edit', 'PostsController@edit');
     //Route::get('/posts/{day}/{post}/edit', 'PostsController@edit');
-    Route::get('/calender/posts/detail/{post}', 'PostsController@show');
-    Route::get('/calender/posts/{post}/edit', 'PostsController@edit');
+    Route::get('/calender/{id}/posts/detail/{post}', 'PostsController@show');
+    Route::get('/calender/{id}/posts/edit/{post}', 'PostsController@edit');
     Route::patch('/calender/posts/detail/{post}', 'PostsController@update');
-    Route::delete('/calender/posts/detail/{post}', 'PostsController@destroy');
+    Route::delete('/calender/{id}/posts/detail/{post}', 'PostsController@destroy');
     Route::get('/logout', 'PostsController@logout');
 });
 

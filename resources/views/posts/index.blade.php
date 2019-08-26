@@ -5,6 +5,7 @@ function h($s) {
         }
 
 
+use Illuminate\Support\Facades\Auth;
 
 ?>
 
@@ -24,9 +25,9 @@ function h($s) {
     <table>
         <thead>
             <tr>
-                <th><a href="/calender?t=<?php echo h($cal->prev); ?>">&laquo;</a></th>
+                <th><a href="/calender/{{$auth}}?t=<?php echo h($cal->prev); ?>">&laquo;</a></th>
                 <th colspan="5"><?php echo h($cal->yearMonth); ?></th>
-                <th><a href="/calender?t=<?php echo h($cal->next); ?>">&raquo;</a></th>
+                <th><a href="/calender/{{$auth}}?t=<?php echo h($cal->next); ?>">&raquo;</a></th>
             </tr>
         </thead>
         <tbody>
@@ -49,7 +50,7 @@ function h($s) {
         <tfoot>
             <tr>
                 <th colspan="7">
-                    <a href="/calender">Today</a>
+                    <a href="{{ action('PostsController@index', $auth)}}">Today</a>
                 </th>
             </tr>
         </tfoot>
