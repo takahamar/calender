@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use App\Post;
 
 
 class Calender {
@@ -63,6 +64,7 @@ class Calender {
             new \DateInterval('P1D'),
             new \DateTime('first day of' . $this->yearMonth . '+1 month')
         );
+        
         $today = new \DateTime('today');
         foreach($period as $day){
             if ($day->format('w') ==='0') {$body .= '</tr><tr>'; }
@@ -74,8 +76,15 @@ class Calender {
             //$body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/calender/{{$Auth::id()}}/posts/%d"><input name= "s_date" type="hidden" value="%d"><a href="/calender/{{Auth::id()}}/posts/%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d'));            
             
             //$body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/calender/{{$auth}}/posts/%d"><input name= "s_date" type="hidden" value="%d"><a href="/calender/{{$auth}}/posts/%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $day->format('Ymd'), $day->format('Ymd'), $day->format('Ymd'), $day->format('d'), $day->format('d')); 
-            
-            $body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/calender/%d/posts/%d"><input name= "s_date" type="hidden" value="%d"><a href="/calender/%d/posts/%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $auth, $day->format('Ymd'), $day->format('Ymd'), $auth, $day->format('Ymd'), $day->format('d'), $day->format('d'));            
+            var_dump($day->format('Ymd'));
+            $test = Post::where('user_id','5')->where('designated_at',$day->format('Ymd'))->get();
+            var_dump($test);
+            if (empty($test)){
+                 $body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/calender/%d/posts/%d"><input name= "s_date" type="hidden" value="%d"><a href="/calender/%d/posts/%d" onClick="document.form_%d.submit(); return false;">%d</a></form></td>', $day->format('w'), $todayClass, $day->format('d'), $auth, $day->format('Ymd'), $day->format('Ymd'), $auth, $day->format('Ymd'), $day->format('d'), $day->format('d'));      
+            } else {
+                $body .= sprintf('<td class="youbi_%d %s"><form name="form_%d" method="GET" action="/calender/%d/posts/%d"><input name= "s_date" type="hidden" value="%d"><b><a href="/calender/%d/posts/%d" onClick="document.form_%d.submit(); return false;">%d</a></b></form></td>', $day->format('w'), $todayClass, $day->format('d'), $auth, $day->format('Ymd'), $day->format('Ymd'), $auth, $day->format('Ymd'), $day->format('d'), $day->format('d'));
+            };
+                    
             
             
         }
